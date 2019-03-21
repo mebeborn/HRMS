@@ -7,6 +7,8 @@ import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home.component';
 import { AUTH_PROVIDERS } from './auth.service';
 import { LoggedInGuard } from './logged-in.guard';
+import { LoggedOutGuard } from './logged-out.guard';
+
 import { CheckUserGuard } from './checkUser.guard';
 import { CheckDevGuard } from './checkDev.guard';
 import { ProtectedComponent } from './protected/protected.component';
@@ -20,7 +22,7 @@ import { MessagesComponent } from './messages/messages.component';
 const routes: Routes = [
 		// basic routes
 		{ path: '', redirectTo: 'home', pathMatch: 'full' },
-		{ path: 'home', component: HomeComponent },
+		{ path: 'home', component: HomeComponent,canActivate: [ LoggedOutGuard ]},
 		{
 		path: 'protected',
 			component: ProtectedComponent,
@@ -52,7 +54,7 @@ const routes: Routes = [
     ProtectedModule,
     DevProfileModule
   ],
-  providers: [ AUTH_PROVIDERS, LoggedInGuard, CheckUserGuard,CheckDevGuard],
+  providers: [ AUTH_PROVIDERS, LoggedInGuard, LoggedOutGuard, CheckUserGuard,CheckDevGuard],
   bootstrap: [AppComponent]
 })
 
