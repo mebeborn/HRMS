@@ -7,11 +7,13 @@ import { RouterModule, Routes } from '@angular/router';
 import { DevProfileComponent } from './dev-profile.component';
 import { MessagesComponent } from '../messages/messages.component';
 
+import { CheckUserGuard } from '../checkUser.guard';
+
 
 
 export const routes: Routes = [
-    { path: '', redirectTo: 'dev-profile', pathMatch: 'full' },
-    { path: 'messages', component: MessagesComponent },
+    { path: '', redirectTo: 'dev-profile', pathMatch: 'full'},
+    { path: 'messages', component: MessagesComponent , canActivate: [ CheckUserGuard ]},
 ];
 
 @NgModule({

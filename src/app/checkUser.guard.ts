@@ -9,18 +9,18 @@ import { AuthService } from './auth.service';
 import { Router } from '@angular/router';
 
 @Injectable()
-export class LoggedInGuard implements CanActivate {
+export class CheckUserGuard implements CanActivate {
 	constructor(private authService: AuthService, private router: Router) {}
 
 	canActivate(
 		next: ActivatedRouteSnapshot,
 		state: RouterStateSnapshot): Observable<boolean> | Promise<boolean> | boolean {
-			const isLoggedIn = this.authService.isLoggedIn();
-			if (!isLoggedIn){
-				this.router.navigate(['/home']);
+            const userLoggedIn = this.authService.getUser();
+            console.log(userLoggedIn);
+			if (userLoggedIn == 'user'){
+				this.router.navigate(['/protected']);
 				return false;
 			}
 				return true;
 		}
-		
 }
